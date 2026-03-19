@@ -147,3 +147,30 @@ Accepts user payment details and returns a fraud risk score.
 | ML | scikit-learn (Logistic Regression, StandardScaler) |
 | Data | pandas, numpy |
 | Model persistence | joblib |
+
+---
+
+## 📊 Model Performance Graph
+
+Since this dataset is highly imbalanced (99.83% normal, 0.17% fraud), **accuracy is not a meaningful metric**.
+Instead, we evaluate the model using **Precision**, **Recall**, and **F1 Score** on the fraud class.
+
+![Learning Curve](model/learning_curve.png)
+
+### What each metric means:
+
+| Metric | Description |
+|---|---|
+| 🔵 **Precision** | Of all transactions predicted as fraud, how many were actually fraud |
+| 🟠 **Recall** | Of all actual fraud cases, how many the model successfully caught |
+| 🟢 **F1 Score** | Harmonic mean of Precision and Recall — overall balance score |
+
+### Current Results:
+- **Precision ~85%** → When the model flags a transaction as fraud, it's correct 85% of the time ✅
+- **Recall ~56%** → The model catches about half of all actual fraud cases ⚠️
+- **F1 Score ~68%** → Overall moderate performance
+
+### Why is Recall low?
+The dataset is extremely imbalanced — only 0.17% of transactions are fraud.
+This causes the model to miss some fraud cases (False Negatives).
+Future improvements could include **SMOTE oversampling** or switching to **XGBoost / RandomForest**.
